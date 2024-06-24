@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/admin/style.css">
+	</head>
+	<body>
+    <div class="sidebar">
+      <header> My Library </header>
+      <ul>
+        <li><a href="/admin-index"><i>Home</i></a></li>
+        <li><a href="/admin-message"><i>Messages</i></a></li>
+        <li><a href="/admin-users"><i>Manage students</i></a></li>
+        <li><a href="/admin-all-books"><i>All books</i></a></li>
+        <li><a href="/admin-book"><i>Add books</i></a></li>
+        <li><a href="/admin-request"><i>Issue/Return/Request</i></a></li>
+        <li><a href="/admin-recomm"><i>Book recommendations</i></a></li>
+        <li><a href="/admin-curr"><i>Currently issued Books</i></a></li>
+    </ul>
+    </div>
+		
+    <div class="table">
+      <div class="search">
+        <form>
+          <label for="search">Search: </label>
+          <input type="text" id="search" name="search" required>
+          <button type="submit">Search</button>
+        </form>
+      </div>
+      <div class="general-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Roll No.</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+						{{range .users}}
+						<tr>
+							<td>{{.Name}}</td>
+							<td>{{.Roll_no}}</td>
+							<td>{{.Acc_type}}</td>
+						</tr>
+						{{end}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+		
+		
+	</body>
+</html>

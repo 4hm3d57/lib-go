@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Books</title>
+    <link rel="stylesheet" href="/student/style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <header>My Library</header>
+        
+    </div>
+
+    <div class="table">
+        <div class="search">
+            <form>
+                <label for="search">Search: </label>
+                <input type="text" id="search" name="search" required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="general-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Copies</th>
+                    </tr>
+                </thead>
+                <tbody>
+									{{range .books}}
+                    <tr>
+                        <td>{{.Title}}</td>
+                        <td>{{.Year}}</td>
+                        <td>{{.Copies}}</td>
+                    </tr>
+									{{end}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/frontend/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">My Library</div>
+        <div class="form-container">
+            <form class="form-layout" action="/signup" method="POST">
+                <label for="name"> Username: </label><br>
+                <input type="text" id="name" name="name" required><br>
+
+                <label for="roll_no">Roll no: </label><br>
+                <input type="text" id="roll_no" name="roll_no" required><br>
+    
+                <label for="password"> Password: </label><br>
+                <input type="password" id="password" name="password" required><br>
+
+                <label for="acc_type">Account Type:</label><br>
+                <div class="account-buttons">
+                    <button type="button" class="account-button" id="admin">Admin</button>
+                    <button type="button" class="account-button" id="student">Student</button>
+                </div><br>
+                
+                <input type="hidden" id="acc_type" name="acc_type" value="">
+                <input type="submit" value="Signup">
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('admin').addEventListener('click', function() {
+            document.getElementById('acc_type').value = 'admin';
+        });
+        document.getElementById('student').addEventListener('click', function() {
+            document.getElementById('acc_type').value = 'student';
+        });
+    </script>
+</body>
+</html>

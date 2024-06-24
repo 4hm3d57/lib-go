@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/admin/style.css">
+</head>
+<body>
+    <div class="sidebar">
+      <header>My Library</header>
+      <ul>
+        <li><a href="/admin-index"><i>Home</i></a></li>
+        <li><a href="/admin-message"><i>Messages</i></a></li>
+        <li><a href="/admin-users"><i>Manage students</i></a></li>
+        <li><a href="/admin-all-books"><i>All books</i></a></li>
+        <li><a href="/admin-book"><i>Add books</i></a></li>
+        <li><a href="/admin-request"><i>Issue/Return/Request</i></a></li>
+        <li><a href="/admin-recomm"><i>Book recommendations</i></a></li>
+        <li><a href="/admin-curr"><i>Currently issued Books</i></a></li>
+    </ul>
+    </div>
+		
+    <div class="add-book">
+        <div class="book-header"><h3>Add book</h3>
+            <div class="book-container">
+                <form action="/book" method="POST">
+                    <label for="title">Book Title: </label>
+                    <input type="text" id="title" name="title" required>
+                    <label for="Author">Author: </label>
+                    <input type="text" id="author" name="author" required>
+                    <label for="publisher">Publisher: </label>
+                    <input type="text" id="publisher" name="publisher" required>
+                    <label for="year">Year: </label>
+                    <input type="text" id="year" name="year" required>
+                    <label for="copies">Number of copies: </label>
+                    <input type="text" id="copies" name="copies" required><br>
+
+                    <button type="submit">Add book</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
