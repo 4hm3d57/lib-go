@@ -52,8 +52,8 @@ func LoginHandler(c *gin.Context) {
 	switch user.Acc_type {
 	case "admin":
 		c.Redirect(http.StatusSeeOther, "/admin-index")
-	// case "student":
-	// 	c.Redirect(http.StatusSeeOther, "/index")
+	case "student":
+		c.Redirect(http.StatusSeeOther, "/student-index")
 	default:
 		c.JSON(http.StatusForbidden, gin.H{"error": "Unknown account type"})
 	}

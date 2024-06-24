@@ -2,7 +2,7 @@ package main
 
 import (
 	adminHandlers "lib/handlers/admin"
-	// studentHandlers "lib/handlers/student"
+	studentHandlers "lib/handlers/student"
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"lib/handlers"
@@ -44,9 +44,21 @@ func main() {
 		c.File("templates/admin/add-book.html")
 	})
 
-	r.POST("/admini-book", adminHandlers.AddBookHandler)
+	r.POST("/admin-book", adminHandlers.AddBookHandler)
 
-	// route for rendering the user table
+	r.GET("/student-message", func(c *gin.Context){
+		c.File("templates/student/message.html")
+	})
+
+	r.POST("/student-message", studentHandlers.InsertMessageHandler)
+
+	r.GET("/student-recomm", func(c *gin.Context){
+		c.File("templates/student/recommendation.html")
+	})
+
+	r.POST("/student-recomm", studentHandlers.InsertRecommHandler)
+
+	// admin routes
 	r.GET("/admin-users", adminHandlers.RenderUserHandler)
 	r.GET("/admin-all-books", adminHandlers.BookHandler)
 	r.GET("/admin-index", adminHandlers.IndexHandler)
@@ -54,6 +66,11 @@ func main() {
 	r.GET("/admin-request", adminHandlers.RequestHandler)
 	r.GET("/admin-message", adminHandlers.MessageHandler)
 	r.GET("/admin-curr", adminHandlers.CurrHandler)
+
+	// student routes
+	r.GET("/student-index", studentHandlers.StudentIndexHandler)
+	r.GET("/student-all-books", studentHandlers.StudentBookHandler)
+	r.GET("/student-curr-books", studentHandlers.StudentCurrHandler)
 
 	log.Fatal(r.Run(":3000"))
 }
