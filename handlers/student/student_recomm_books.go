@@ -50,21 +50,3 @@ func InsertRecommHandler(c *gin.Context) {
 }
 
 
-// admin recommendation code
-// -----------------------------------------------------------------------
-// func StudentRecommendationHandler(c *gin.Context){
-
-// 	recommendations, err := models.GetAllRecommendation()
-// 	if err != nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "error retrieving recommendations"})
-// 		return
-// 	}
-	
-// 	if messages == nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "recommendation not found"})
-// 		return
-// 	}
-	
-// 	c.HTML(http.StatusOK, "recommendation.html", gin.H{"recommendations": recommendations})
-
-// }

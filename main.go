@@ -3,9 +3,9 @@ package main
 import (
 	adminHandlers "lib/handlers/admin"
 	studentHandlers "lib/handlers/student"
+	registerHandlers "lib/handlers/register"
 	"github.com/gin-gonic/gin"
 	"html/template"
-	"lib/handlers"
 	"log"
 	"path/filepath"
 )
@@ -29,13 +29,13 @@ func main() {
 		c.File("templates/login.html")
 	})
 
-	r.POST("/login", handlers.LoginHandler)
+	r.POST("/login", registerHandlers.LoginHandler)
 
 	r.GET("/signup", func(c *gin.Context) {
 		c.File("templates/signup.html")
 	})
 
-	r.POST("/signup", handlers.SignupHandler)
+	r.POST("/signup", registerHandlers.SignupHandler)
 
 	r.Static("/admin", "./templates/admin")
 	r.Static("/student", "./templates/student")
@@ -72,5 +72,5 @@ func main() {
 	r.GET("/student-all-books", studentHandlers.StudentBookHandler)
 	r.GET("/student-curr-books", studentHandlers.StudentCurrHandler)
 
-	log.Fatal(r.Run(":3000"))
+	log.Fatal(r.Run(":8080"))
 }

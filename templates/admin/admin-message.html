@@ -26,14 +26,17 @@
             <table>
                 <thead>
                     <tr>
+                        <th>Roll_No</th>
                         <th>Message</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!---TODO-->
+									{{range .messages}}
+									<tr>
+										<td>{{.Roll_no}}</td>
+										<td>{{.Messages}}</td>
+									</tr>
+									{{end}}
                 </tbody>
             </table>
         </div>

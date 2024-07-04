@@ -23,24 +23,28 @@
     
 
     <div class="table">
-        <div class="general-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Book name</th>
-                        <th>Description</th>
-                        <th>Recommended by</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!---TODO-->
-                </tbody>
-            </table>
-        </div>
-            <center>
-                <button type="submit"><a href="/admin-book">Add book</a></button>
-            </center>
+      <div class="general-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Book name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+						{{range .recommendations}}
+						<tr>
+              <td>{{.Title}}</td>
+              <td>{{.Description}}</td>
+            </tr>
+						{{end}}
+          </tbody>
+        </table>
+      </div>
+      <center>
+        <button type="submit"><a href="/admin-book">Add book</a></button>
+      </center>
     </div>
-
+		
 </body>
 </html>
