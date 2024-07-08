@@ -26,6 +26,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th>Name</th>
                         <th>Roll_No</th>
                         <th>Message</th>
                     </tr>
@@ -33,6 +34,7 @@
                 <tbody>
 									{{range .messages}}
 									<tr>
+                                        <td>{{.Name}}</td>
 										<td>{{.Roll_no}}</td>
 										<td>{{.Messages}}</td>
 									</tr>

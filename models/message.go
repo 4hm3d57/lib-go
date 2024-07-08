@@ -9,8 +9,9 @@ import (
 )
 
 type Message struct {
-	Roll_no string
-	Messages string
+	Name     string `bson:"name"`
+	Roll_no  string `bson:"roll_no"`
+	Messages string `bson:"messages"`
 }
 
 func MessageDB() (*mongo.Client, *mongo.Collection, error) {
@@ -24,8 +25,6 @@ func MessageDB() (*mongo.Client, *mongo.Collection, error) {
 
 	return client, messageCollection, err
 }
-
-
 
 func InsertMessage(message Message) error {
 
@@ -45,8 +44,7 @@ func InsertMessage(message Message) error {
 	return err
 }
 
-
-func GetAllMessages() ([]Message, error){
+func GetAllMessages() ([]Message, error) {
 
 	client, messageCollection, err := MessageDB()
 	if err != nil {
@@ -55,7 +53,6 @@ func GetAllMessages() ([]Message, error){
 	}
 	defer client.Disconnect(context.Background())
 
-
 	var messages []Message
 
 	cur, err := messageCollection.Find(context.Background(), bson.M{})
@@ -63,12 +60,11 @@ func GetAllMessages() ([]Message, error){
 		log.Printf("failed to retrieve books")
 		return nil, err
 	}
-	
 
 	if err = cur.All(context.Background(), &messages); err != nil {
 		return nil, err
 	}
 
 	return messages, err
-	
+
 }

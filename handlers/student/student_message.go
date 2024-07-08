@@ -1,13 +1,11 @@
 package student
 
-
-import(
-	"lib/models"
+import (
 	"github.com/gin-gonic/gin"
-	"net/http"
+	"lib/models"
 	"log"
+	"net/http"
 )
-
 
 func InsertMessageHandler(c *gin.Context) {
 	// Ensure the request is a POST request
@@ -15,7 +13,7 @@ func InsertMessageHandler(c *gin.Context) {
 		c.JSON(http.StatusMethodNotAllowed, gin.H{"error": "Invalid method request"})
 		return
 	}
-	
+
 	// Parse form data
 	err := c.Request.ParseForm()
 	if err != nil {
@@ -23,21 +21,22 @@ func InsertMessageHandler(c *gin.Context) {
 		log.Println("Error parsing form:", err)
 		return
 	}
-	
+
 	// Validate data
+	name := c.PostForm("name")
 	roll_no := c.PostForm("roll_no")
 	message := c.PostForm("message")
 
-	
-	log.Printf("Retrieved data: roll_no: %s, message: %s", roll_no, message)
-	
-	if roll_no == "" || message == ""  {
+	log.Printf("Retrieved data: name: %s, roll_no: %s, message: %s", name, roll_no, message)
+
+	if name == "" || roll_no == "" || message == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "All fields are required"})
 		return
 	}
 
 	newMessage := models.Message{
-		Roll_no: roll_no,
+		Name:     name,
+		Roll_no:  roll_no,
 		Messages: message,
 	}
 
@@ -46,28 +45,5 @@ func InsertMessageHandler(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "error adding recommendation"})
 		return
 	}
-	
+
 }
-
-
-
-
-
-// [LOG]: Admin message code
-// -------------------------------------------------
-// func StudentMessageHandler(c *gin.Context) {
-	
-// 	messages, err := models.GetAllMessage()
-// 	if err != nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "error retrieving messages"})
-// 		return
-// 	}
-	
-// 	if messages == nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "message not found"})
-// 		return
-// 	}
-	
-// 	c.HTML(http.StatusOK, "message.html", gin.H{"messages": messages})
-	
-// }
