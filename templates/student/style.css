@@ -1,19 +1,22 @@
 body {
-    background-color: grey;
+    background-color: darkgrey;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
 * {
     margin: 0;
     padding: 0;
     list-style: none;
     text-decoration: none;
+    box-sizing: border-box;
 }
 
-.sidebar { 
+.sidebar {
     position: fixed;
     top: 0;
     left: 0;
     width: 250px;
-    height:100%;
+    height: 100%;
     background: #042331;
 }
 
@@ -29,27 +32,46 @@ body {
 .sidebar ul a {
     display: block;
     width: 100%;
-    height: 100%;
+    height: 50px;
     line-height: 50px;
-    font-size: 20px;
+    font-size: 18px;
     color: white;
-    padding-left: 40px;
-    box-sizing: border-box;
-    border-bottom: 1px solid black;
+    padding-left: 20px;
+    border-bottom: 1px solid #063146;
+    transition: all 0.3s;
 }
 
-
-ul li:hover a {
-    padding-left: 50px;
-    color: black;
+.sidebar ul a:hover {
+    padding-left: 30px;
+    background: #06536b;
 }
 
-.detail-img {
+.img-detail {
+    margin-left: 250px;
+    padding: 20px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    width: 100%;
+}
+
+.card {
+    background: darkgrey;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 400px;
+    height: 400px;
+    text-align: center;
+    padding: 5px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .img {
@@ -58,11 +80,23 @@ ul li:hover a {
     align-items: center;
 }
 
-.img img{
+.img img {
     height: 250px;
-    margin: 10vh;
-    margin-right: 2vh;
-    border-radius: 5px;;
+    width: 250px; 
+    object-fit: cover; 
+    margin: 2vh;
+    margin-right: 3vh;
+    border-radius: 5px;
+}
+
+.details {
+    padding: 0px;
+}
+
+.details p {
+    font-size: 24px;
+    color: #333;
+    margin: 3px 0;
 }
 
 .details-container {
@@ -126,7 +160,69 @@ ul li:hover a {
     background-color: #218838;
 }
 
-.table, .search-form {
+
+.add-book {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 225vh;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.book-header {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.book-header h3 {
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.book-container form {
+    display: inline-block;
+    text-align: left;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.book-container form label {
+    display: block;
+    margin-top: 10px;
+}
+
+.book-container form input {
+    width: 400px;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.book-container form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.book-container form button:hover {
+    background-color: #218838;
+}
+
+
+.table {
     width: 80%;
     max-width: 800px;
     margin: 20px auto;

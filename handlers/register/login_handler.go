@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"github.com/gin-contrib/sessions"
 	"lib/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -47,7 +48,13 @@ func LoginHandler(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
-	
+
+	session := sessions.Default(c)
+	session.Set("userID", user.ID.Hex())
+	session.Save()
+
+
+
 	// Redirect based on account type
 	switch user.Acc_type {
 	case "admin":

@@ -1,76 +1,77 @@
 package main
 
 import (
-	adminHandlers "lib/handlers/admin"
-	studentHandlers "lib/handlers/student"
-	registerHandlers "lib/handlers/register"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"log"
 	"path/filepath"
+
+	adminHandlers "lib/handlers/admin"
+	registerHandlers "lib/handlers/register"
+	studentHandlers "lib/handlers/student"
 )
 
 func main() {
-
 	r := gin.Default()
 
-	// serve login.html as root URI
+	// Serve static files
 	r.Static("/frontend", "./templates")
 
+	// Session store
+	store := cookie.NewStore([]byte("secret_key"))
+	r.Use(sessions.Sessions("session_id", store))
+
+	// Load HTML templates
 	adminGlob := filepath.Join("templates", "admin", "*.html")
 	studentGlob := filepath.Join("templates", "student", "*.html")
 
-	// load the html template
 	tmpl := template.Must(template.ParseGlob(adminGlob))
 	tmpl = template.Must(tmpl.ParseGlob(studentGlob))
 	r.SetHTMLTemplate(tmpl)
 
+	// Public routes
 	r.GET("/", func(c *gin.Context) {
 		c.File("templates/login.html")
 	})
-
 	r.POST("/login", registerHandlers.LoginHandler)
-
 	r.GET("/signup", func(c *gin.Context) {
 		c.File("templates/signup.html")
 	})
-
 	r.POST("/signup", registerHandlers.SignupHandler)
 
+	// static files student and admin folders
 	r.Static("/admin", "./templates/admin")
 	r.Static("/student", "./templates/student")
 
-	r.GET("/admin-book", func(c *gin.Context) {
+	// Admin routes with authentication middleware
+
+	r.GET("/admin-book", adminHandlers.AuthMiddleware(), func(c *gin.Context) {
 		c.File("templates/admin/add-book.html")
 	})
+	r.POST("/admin-book", adminHandlers.AuthMiddleware(), adminHandlers.AddBookHandler)
 
-	r.POST("/admin-book", adminHandlers.AddBookHandler)
+	r.GET("/admin-users", adminHandlers.AuthMiddleware(), adminHandlers.RenderUserHandler)
+	r.GET("/admin-all-books", adminHandlers.AuthMiddleware(), adminHandlers.BookHandler)
+	r.GET("/admin-index", adminHandlers.AuthMiddleware(), adminHandlers.IndexPage)
+	r.GET("/admin-recomm", adminHandlers.AuthMiddleware(), adminHandlers.RecommendationHandler)
+	r.GET("/admin-request", adminHandlers.AuthMiddleware(), adminHandlers.RequestHandler)
+	r.GET("/admin-message", adminHandlers.AuthMiddleware(), adminHandlers.MessageHandler)
+	r.GET("/admin-curr", adminHandlers.AuthMiddleware(), adminHandlers.CurrHandler)
 
-	r.GET("/student-message", func(c *gin.Context){
+	// Student routes with authentication middleware
+	r.GET("/student-index", studentHandlers.AuthMiddleware(), studentHandlers.IndexPage)
+	r.GET("/student-all-books", studentHandlers.AuthMiddleware(), studentHandlers.StudentBookHandler)
+	r.GET("/student-curr-books", studentHandlers.AuthMiddleware(), studentHandlers.StudentCurrHandler)
+	r.GET("/student-message", studentHandlers.AuthMiddleware(), func(c *gin.Context) {
 		c.File("templates/student/message.html")
 	})
-
-	r.POST("/student-message", studentHandlers.InsertMessageHandler)
-
-	r.GET("/student-recomm", func(c *gin.Context){
+	r.POST("/student-message", studentHandlers.AuthMiddleware(), studentHandlers.InsertMessageHandler)
+	r.GET("/student-recomm", studentHandlers.AuthMiddleware(), func(c *gin.Context) {
 		c.File("templates/student/recommendation.html")
 	})
+	r.POST("/student-recomm", studentHandlers.AuthMiddleware(), studentHandlers.InsertRecommHandler)
 
-	r.POST("/student-recomm", studentHandlers.InsertRecommHandler)
-
-	// admin routes
-	r.GET("/admin-users", adminHandlers.RenderUserHandler)
-	r.GET("/admin-all-books", adminHandlers.BookHandler)
-	r.GET("/admin-index", adminHandlers.IndexHandler)
-	r.GET("/admin-recomm", adminHandlers.RecommendationHandler)
-	r.GET("/admin-request", adminHandlers.RequestHandler)
-	r.GET("/admin-message", adminHandlers.MessageHandler)
-	r.GET("/admin-curr", adminHandlers.CurrHandler)
-
-	// student routes
-	r.GET("/student-index", studentHandlers.StudentIndexHandler)
-	r.GET("/student-all-books", studentHandlers.StudentBookHandler)
-	r.GET("/student-curr-books", studentHandlers.StudentCurrHandler)
-
-	log.Fatal(r.Run(":8080"))
+	log.Fatal(r.Run(":9000"))
 }
