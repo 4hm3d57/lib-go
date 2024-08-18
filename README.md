@@ -40,7 +40,7 @@ Make sure you have the following installed on your system:
    # run the application
    go build .
    ```
-   - Open your browser and go to [](http://localhost:5050)
+   - Open your browser and go to  `http://localhost:5050`
 
    
 ## Contributing
